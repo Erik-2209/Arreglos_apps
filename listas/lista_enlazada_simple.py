@@ -69,30 +69,60 @@ class ListaEnlazadaSimple:
         """Verifica si la lista está vacía."""
         return self.cabeza is None  # Si la cabeza es None, la lista está vacía
 
+# Función para validar nombres y apellidos
+def validar_nombre_apellido(mensaje):
+    while True:
+        valor = input(mensaje)
+        if valor.replace(" ", "").isalpha() and len(valor.split()) >= 2:
+            return valor  # Solo acepta si el valor contiene solo letras y al menos nombre y apellido
+        else:
+            print("Por favor, ingresa un nombre válido con apellido (solo letras).")
+
 # Clase de prueba para validar los métodos de la lista enlazada simple
 if __name__ == "__main__":
-    # Creación de una lista enlazada simple
     lista = ListaEnlazadaSimple()
 
-    # Insertar elementos al inicio de la lista
-    lista.insertar_inicio(10)
-    lista.insertar_inicio(20)
+    while True:
+        print("\nOpciones:")
+        print("1. Insertar al inicio (Nombre y Apellido)")
+        print("2. Insertar al final (Nombre y Apellido)")
+        print("3. Eliminar un nodo (Nombre y Apellido)")
+        print("4. Buscar un nodo (Nombre y Apellido)")
+        print("5. Imprimir la lista")
+        print("6. Verificar si la lista está vacía")
+        print("7. Salir")
 
-    # Insertar elemento al final de la lista
-    lista.insertar_final(30)
+        opcion = input("Selecciona una opción (1-7): ")
 
-    # Imprimir la lista después de las inserciones
-    print("Lista después de las inserciones:")
-    lista.imprimir_lista()  # Debería imprimir: 20 -> 10 -> 30 -> None
-
-    # Buscar elementos en la lista
-    print("¿Está 10 en la lista?", lista.buscar(10))  # Debería ser True
-    print("¿Está 40 en la lista?", lista.buscar(40))  # Debería ser False
-
-    # Eliminar un nodo de la lista
-    lista.eliminar(10)
-    print("Lista después de eliminar el nodo 10:")
-    lista.imprimir_lista()  # Debería imprimir: 20 -> 30 -> None
-
-    # Verificar si la lista está vacía
-    print("¿La lista está vacía?", lista.esta_vacia())  # Debería ser False
+        if opcion == '1':
+            valor = validar_nombre_apellido("Ingresa tu nombre y apellido para insertar al inicio: ")
+            lista.insertar_inicio(valor)
+            print(f"Nombre {valor} insertado al inicio.")
+        elif opcion == '2':
+            valor = validar_nombre_apellido("Ingresa tu nombre y apellido para insertar al final: ")
+            lista.insertar_final(valor)
+            print(f"Nombre {valor} insertado al final.")
+        elif opcion == '3':
+            valor = validar_nombre_apellido("Ingresa el nombre y apellido que deseas eliminar: ")
+            lista.eliminar(valor)
+            print(f"Nombre {valor} eliminado.")
+        elif opcion == '4':
+            valor = validar_nombre_apellido("Ingresa el nombre y apellido que deseas buscar: ")
+            encontrado = lista.buscar(valor)
+            if encontrado:
+                print(f"Nombre {valor} encontrado en la lista.")
+            else:
+                print(f"Nombre {valor} no encontrado en la lista.")
+        elif opcion == '5':
+            print("Contenido de la lista:")
+            lista.imprimir_lista()
+        elif opcion == '6':
+            if lista.esta_vacia():
+                print("La lista está vacía.")
+            else:
+                print("La lista no está vacía.")
+        elif opcion == '7':
+            print("Saliendo del programa.")
+            break
+        else:
+            print("Opción no válida, por favor selecciona una opción entre 1 y 7.")
